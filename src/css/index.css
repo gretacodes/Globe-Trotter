@@ -1,0 +1,84 @@
+
+
+.form-group {
+    padding-left:20rem;
+    padding-right:20rem;
+    padding-bottom:1rem;
+    color:white;
+    font-family: 'Bebas Neue', cursive;
+    font-size:20px;
+}
+
+/* .card {
+    margin-top:3rem;
+    margin-left:20rem;
+    margin-bottom:3rem;
+} */
+
+body {
+    background-image: url("https://www.itl.cat/pngfile/big/54-548817_airplane-at-night-wallpaper-hd-night-airplane-wallpaper.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: top;
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Carter One', cursive;
+    font-size:120px;
+    text-shadow: 4px 4px purple;
+    padding-top:3rem;
+    padding-bottom:2rem;
+    color:white;
+}
+.design {
+    font-size:35px;
+        text-shadow: 4px 4px purple;
+}
+
+#distance, #outbound, #inbound, #passengers {
+    font-size:15px;
+    color:black;
+    font-family: 'Epilogue', sans-serif;
+    
+}
+
+.text-center {
+    font-family: 'Carter One', cursive;
+    padding-bottom:3rem;
+    
+}
+
+ul{
+    font-family: 'Bebas Neue', cursive;
+}
+
+.card-header {
+    font-family: 'Carter One', cursive;
+    color:white;
+    font-size:50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 4px 4px purple;
+
+}
+
+#suggestioncontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom:3rem;
+}
+.card {
+    background:
+rgb(243, 153, 50)}
+
+.butt {
+ color:white;
+ background-color:rgb(243, 153, 50)}

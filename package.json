@@ -1,0 +1,18 @@
+{
+  "name": "pantest",
+  "version": "1.0.0",
+  "description": "tech test",
+  "main": "index.js",
+  "scripts": {
+    "build": "",
+    "start": "npx parcel ./src/index.html "
+  },
+  "author": "Greta",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.5.3"
+  },
+  "devDependencies": {
+    "parcel": "^1.12.4"
+  }
+}
