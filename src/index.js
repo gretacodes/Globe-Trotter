@@ -18,12 +18,12 @@ const transportType=document.getElementById("typeoftransport");
 //app state - all info/data that app holds at a certain time. we set it as null there is no state, there can be if check
 const state={
     input: {
-         outbound: null,
-         inbound: null,
+        outbound: null,
+        inbound: null,
         distance: null,
         passengers: null,
         transport: null,
-        transportType:null,
+        transportType:"Taxi",
 
     },
     output: {

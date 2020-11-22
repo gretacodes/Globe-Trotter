@@ -125,10 +125,10 @@ class Flights {
 
 
         // [1, 2] [] if array is empty come back as null - if no trips/combinations available
-const flightObject={
-    outbound: filteredFlights[0] ? filteredFlights[0] : null,
-    inbound: filteredFlights1[0] ? filteredFlights1[0]: null
-}
+        const flightObject={
+            outbound: filteredFlights[0] ? filteredFlights[0] : null,
+            inbound: filteredFlights1[0] ? filteredFlights1[0]: null
+        }
 
         return flightObject;
 

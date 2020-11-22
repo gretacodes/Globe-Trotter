@@ -9,9 +9,7 @@
   },
   "author": "Greta",
   "license": "ISC",
-  "dependencies": {
-    "bootstrap": "^4.5.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "parcel": "^1.12.4"
   }
