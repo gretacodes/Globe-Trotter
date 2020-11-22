@@ -1,28 +1,27 @@
-
-
 .form-group {
-    padding-left:20rem;
-    padding-right:20rem;
+  
     padding-bottom:1rem;
     color:white;
     font-family: 'Bebas Neue', cursive;
     font-size:20px;
+margin-left:32rem;
+
 }
 
-/* .card {
-    margin-top:3rem;
-    margin-left:20rem;
-    margin-bottom:3rem;
-} */
+@media only screen and (max-width: 768px) {
+   .form-group {
+    margin-left:7rem;
+    }
+  }
+
+ 
 
 body {
-    background-image: url("https://www.itl.cat/pngfile/big/54-548817_airplane-at-night-wallpaper-hd-night-airplane-wallpaper.jpg");
+    background-image: url("/background.866a979e.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-position: top;
-    width: 100%;
-    height: 100%;
+    background-size: 1600px 1100px;
 }
 
 h1 {
@@ -30,57 +29,102 @@ h1 {
     justify-content: center;
     align-items: center;
     font-family: 'Carter One', cursive;
-    font-size:120px;
-    text-shadow: 4px 4px purple;
+    font-size:85px;
+    text-shadow: 4px 4px black;
     padding-top:3rem;
     padding-bottom:2rem;
-    color:white;
-}
-.design {
-    font-size:35px;
-        text-shadow: 4px 4px purple;
+    color: rgb(228, 218, 89);
 }
 
-#distance, #outbound, #inbound, #passengers {
+@media only screen and (max-width: 768px) {
+    h1 {
+     font-size:40px;
+     }
+   }
+.design {
+    font-size:28px;
+        text-shadow: 2px 2px black;
+        color:rgb(224, 95, 95);
+        font-family: 'Bebas Neue', cursive;
+}
+
+@media only screen and (max-width: 768px) {
+    .design {
+    font-size:24px;
+    color: rgb(228, 218, 89);
+    text-shadow: 2px 2px black;
+     }
+   }
+
+
+#distance, #outbound, #inbound, #passengers, #transport {
     font-size:15px;
     color:black;
     font-family: 'Epilogue', sans-serif;
+    border-radius: 20px;
     
 }
+@media only screen and (max-width: 768px) {
+    #distance, #outbound, #inbound, #passengers, #transport  {
+     font-size:12.5px;
+     }
+   }
 
 .text-center {
     font-family: 'Carter One', cursive;
     padding-bottom:3rem;
+ 
     
 }
 
+ul {
+    font-size:24px;
+    padding-left:0.5rem;
+}
+.butt {
+   padding-left:4.5rem;
+   padding-right:4.5rem;
+   padding-top:0.5rem;
+   padding-bottom:0.5rem;
+    font-size:20px;
+    background-color: rgb(224, 95, 95);
+    color:white;
+
+}
 ul{
     font-family: 'Bebas Neue', cursive;
 }
 
 .card-header {
     font-family: 'Carter One', cursive;
-    color:white;
+    color:  rgb(228, 218, 89);
     font-size:50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 4px 4px purple;
+    text-shadow: 4px 4px black;
 
 }
 
+@media only screen and (max-width: 768px) {
+    .card-header {
+    font-size:40px;
+     }
+   }
+
 #suggestioncontainer {
-    display: flex;
+display:flex;
     justify-content: center;
     align-items: center;
     padding-bottom:3rem;
 }
-.card {
-    background:
-rgb(243, 153, 50)}
 
-.butt {
- color:white;
- background-color:rgb(243, 153, 50)}
+@media only screen and (max-width: 768px) {
+    #suggestioncontainer {
+    padding:1rem;
+     }
+   }
+.card {
+    background:rgb(224, 95, 95);}
 
 /*# sourceMappingURL=/css.967bad95.css.map */

@@ -1,4 +1,6 @@
-import { flights } from '../data';
+//model
+
+import { flights } from '../data.js';
 
 // OOP
 // Class for the flights model
@@ -7,19 +9,19 @@ class Flights {
     constructor (flights){
 
         //variable to parse out the appropriate flight data
-        const flightData=flights.map(function(el){
+        const flightData=flights.map(function(flightElement){
 
             //parse out flight id
-            const id = el;
+            const id = flightElement;
 
             //parse out departure
-            const departure=el.slice(0,1);
+            const departure=flightElement.slice(0,1);
 
             //parse out destination
-            const destination=el.slice(1,2);
+            const destination=flightElement.slice(1,2);
 
             //parse out distance
-            const distance=parseInt(el.slice(2,5));
+            const distance=parseInt(flightElement.slice(2,5));
 
             //return result
             return {
@@ -40,9 +42,9 @@ class Flights {
         flightData.forEach(function(flight){
 
             // filter out the flights that fly from the destination
-            const existingFlights = flightData.filter(function(el) {
+            const existingFlights = flightData.filter(function(flightElement) {
 
-                return el.departure === flight.destination;
+                return flightElement.departure === flight.destination;
 
             })
 
@@ -54,7 +56,8 @@ class Flights {
                     departure: flight.departure,
                     transfer1: flight.destination,
                     destination: existingFlight.destination,
-                    distance: flight.distance + existingFlight.distance
+                    distance: flight.distance + existingFlight.distance,
+                  
                 }
 
             });
@@ -74,9 +77,9 @@ class Flights {
         singleRedirectFlights.forEach(function(flight) {
 
 
-            const existingFlights = flightData.filter(function(el) {
+            const existingFlights = flightData.filter(function(flightElement) {
 
-                return el.destination === flight.transfer1
+                return flightElement.destination === flight.transfer1
 
             });
 
@@ -99,8 +102,9 @@ class Flights {
             
 
         })
-
+        //spread operator...merges multiple arrays into one.
         this.possibleFlights=[ ...directFlights, ...singleRedirectFlights, ...doubleRedirectFlights ];
+   
 
     }
 
@@ -108,16 +112,25 @@ class Flights {
 
 
         // get appropriate flights
-        const filteredFlights= this.possibleFlights.filter(function(el) {
-            return el.departure === departure && el.destination === destination;
+        const filteredFlights= this.possibleFlights.filter(function(flightElement) {
+            return flightElement.departure === departure && flightElement.destination === destination;
+   
         });
-
+        const filteredFlights1= this.possibleFlights.filter(function(flightElement) {
+        return flightElement.destination === departure && flightElement.departure === destination;
+    });
         // sorting based on lowest distance
         filteredFlights.sort(function(a, b){return a.distance - b.distance});
+        filteredFlights1.sort(function(a, b){return a.distance - b.distance});
 
 
         // [1, 2] [] if array is empty come back as null - if no trips/combinations available
-        return filteredFlights[0] ? filteredFlights[0] : null;
+const flightObject={
+    outbound: filteredFlights[0] ? filteredFlights[0] : null,
+    inbound: filteredFlights1[0] ? filteredFlights1[0]: null
+}
+
+        return flightObject;
 
     }
 

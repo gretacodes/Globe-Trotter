@@ -136,7 +136,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.flightsModel = void 0;
 
-var _data = require("../data");
+var _data = require("../data.js");
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -163,15 +163,15 @@ var Flights = /*#__PURE__*/function () {
     _classCallCheck(this, Flights);
 
     //variable to parse out the appropriate flight data
-    var flightData = flights.map(function (el) {
+    var flightData = flights.map(function (flightElement) {
       //parse out flight id
-      var id = el; //parse out departure
+      var id = flightElement; //parse out departure
 
-      var departure = el.slice(0, 1); //parse out destination
+      var departure = flightElement.slice(0, 1); //parse out destination
 
-      var destination = el.slice(1, 2); //parse out distance
+      var destination = flightElement.slice(1, 2); //parse out distance
 
-      var distance = parseInt(el.slice(2, 5)); //return result
+      var distance = parseInt(flightElement.slice(2, 5)); //return result
 
       return {
         id: id,
@@ -188,8 +188,8 @@ var Flights = /*#__PURE__*/function () {
 
     flightData.forEach(function (flight) {
       // filter out the flights that fly from the destination
-      var existingFlights = flightData.filter(function (el) {
-        return el.departure === flight.destination;
+      var existingFlights = flightData.filter(function (flightElement) {
+        return flightElement.departure === flight.destination;
       }); // generate redirected flights
 
       var redirectedFlights = existingFlights.map(function (existingFlight) {
@@ -206,8 +206,8 @@ var Flights = /*#__PURE__*/function () {
     var doubleRedirectFlights = []; //generate all flights with 2 transfers
 
     singleRedirectFlights.forEach(function (flight) {
-      var existingFlights = flightData.filter(function (el) {
-        return el.destination === flight.transfer1;
+      var existingFlights = flightData.filter(function (flightElement) {
+        return flightElement.destination === flight.transfer1;
       });
       var redirectedFlights = existingFlights.map(function (existingFlight) {
         return {
@@ -220,7 +220,8 @@ var Flights = /*#__PURE__*/function () {
         };
       });
       doubleRedirectFlights = [].concat(_toConsumableArray(doubleRedirectFlights), _toConsumableArray(redirectedFlights));
-    });
+    }); //spread operator...merges multiple arrays into one.
+
     this.possibleFlights = [].concat(_toConsumableArray(directFlights), _toConsumableArray(singleRedirectFlights), _toConsumableArray(doubleRedirectFlights));
   }
 
@@ -228,15 +229,25 @@ var Flights = /*#__PURE__*/function () {
     key: "getClosestFlight",
     value: function getClosestFlight(departure, destination, passengers) {
       // get appropriate flights
-      var filteredFlights = this.possibleFlights.filter(function (el) {
-        return el.departure === departure && el.destination === destination;
+      var filteredFlights = this.possibleFlights.filter(function (flightElement) {
+        return flightElement.departure === departure && flightElement.destination === destination;
+      });
+      var filteredFlights1 = this.possibleFlights.filter(function (flightElement) {
+        return flightElement.destination === departure && flightElement.departure === destination;
       }); // sorting based on lowest distance
 
       filteredFlights.sort(function (a, b) {
         return a.distance - b.distance;
+      });
+      filteredFlights1.sort(function (a, b) {
+        return a.distance - b.distance;
       }); // [1, 2] [] if array is empty come back as null - if no trips/combinations available
 
-      return filteredFlights[0] ? filteredFlights[0] : null;
+      var flightObject = {
+        outbound: filteredFlights[0] ? filteredFlights[0] : null,
+        inbound: filteredFlights1[0] ? filteredFlights1[0] : null
+      };
+      return flightObject;
     }
   }]);
 
@@ -247,7 +258,7 @@ var Flights = /*#__PURE__*/function () {
 
 var flightsModel = new Flights(_data.flights);
 exports.flightsModel = flightsModel;
-},{"../data":"js/data.js"}],"js/views/flightview.js":[function(require,module,exports) {
+},{"../data.js":"js/data.js"}],"js/views/flightview.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -255,78 +266,162 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.renderFlights = void 0;
 
-var renderFlights = function renderFlights(suggestion, passengers) {
+//view
+var renderFlights = function renderFlights(suggestion, passengers, transport) {
+  var _suggestion$outbound, _suggestion$outbound2, _suggestion$inbound, _suggestion$inbound2, _suggestion$inbound3, _suggestion$outbound3;
+
   console.log(suggestion); //select conatainer
 
-  var container = document.getElementById("suggestioncontainer"); //reset the container
+  var container = document.getElementById("suggestioncontainer"); // //reset the container
 
   container.innerHTML = ""; //generate markup
 
-  var markup = "\n          <div class=\"card\" style=\"width: 38rem;\" id=\"suggestion\">\n          <div class=\"card-header\">\n            OUR SUGGESTION\n          </div>\n          <ul class=\"list-group list-group-flush\">\n          <li class=\"list-group-item\">Outbound Route: ".concat(suggestion.id, "</li>\n          <li class=\"list-group-item\">Outbound Cost: \xA3").concat(suggestion.distance * passengers * 0.1, "</li>\n          </br>\n          <li class=\"list-group-item\">Inbound Route: ", null, "</li>\n          <li class=\"list-group-item\">Inbound Cost: ", null, "</li>\n      </br>\n          <li class=\"list-group-item\">Vehicle Type: ", null, "</li>\n          <li class=\"list-group-item\">Vehicle Return Cost: ", null, "</li>\n          </br>\n          <li class=\"list-group-item\" >TOTAL COST: ", null, "</li>\n          \n          </ul>\n      </div>\n      "); //insert markup into the container
+  var markup = "\n        <div class=\"card\" style=\"width: 38rem;\" id=\"suggestion\">\n        <div class=\"card-header\">\n          OUR SUGGESTION\n        </div>\n        <ul class=\"list-group list-group-flush\">\n        <li class=\"list-group-item\">Outbound Route: ".concat(suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound = suggestion.outbound) === null || _suggestion$outbound === void 0 ? void 0 : _suggestion$outbound.id, " </li>\n        <li class=\"list-group-item\">Outbound Cost: \xA3").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound2 = suggestion.outbound) === null || _suggestion$outbound2 === void 0 ? void 0 : _suggestion$outbound2.distance) * passengers * 0.1, "</li>\n        </br>\n        <li class=\"list-group-item\">Inbound Route:").concat(suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound = suggestion.inbound) === null || _suggestion$inbound === void 0 ? void 0 : _suggestion$inbound.id, " </li>\n        <li class=\"list-group-item\">Inbound Cost: \xA3").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound2 = suggestion.inbound) === null || _suggestion$inbound2 === void 0 ? void 0 : _suggestion$inbound2.distance) * passengers * 0.1, " </li>\n    </br>\n        <li class=\"list-group-item\"> Return Travel to Airport Cost & Type: \xA3").concat(transport === null || transport === void 0 ? void 0 : transport.cost, " (").concat(transport === null || transport === void 0 ? void 0 : transport.type, ") </li>\n        \n        </br>\n        <li class=\"list-group-item\" >TOTAL COST: \xA3").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound3 = suggestion.inbound) === null || _suggestion$inbound3 === void 0 ? void 0 : _suggestion$inbound3.distance) * passengers * 0.1 + (suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound3 = suggestion.outbound) === null || _suggestion$outbound3 === void 0 ? void 0 : _suggestion$outbound3.distance) * passengers * 0.1 + (transport === null || transport === void 0 ? void 0 : transport.cost), " </li>\n        \n        </ul>\n    </div>");
+  var noFlightsMarkup = "\n    <p> No Flights </p>   \n    "; //insert markup into the container
 
-  container.insertAdjacentHTML('beforeend', markup);
+  container.insertAdjacentHTML('beforeend', (suggestion === null || suggestion === void 0 ? void 0 : suggestion.outbound) && (suggestion === null || suggestion === void 0 ? void 0 : suggestion.inbound) ? markup : noFlightsMarkup);
 };
 
 exports.renderFlights = renderFlights;
+},{}],"js/models/transport.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.transportModel = exports.Transport = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+// //  
+// class that calculates the transport costs
+var Transport = /*#__PURE__*/function () {
+  function Transport(transport) {
+    _classCallCheck(this, Transport);
+  } //method
+
+
+  _createClass(Transport, [{
+    key: "getTransportCost",
+    value: function getTransportCost(transport, passengers, transportType) {
+      //calculating taxi
+      var travelTaxi;
+
+      if (passengers <= 4) {
+        travelTaxi = transport * 0.4 * 2;
+      } else if (passengers > 4 && passengers < 9) {
+        travelTaxi = transport * 0.4 * 2 * 2;
+      } else {
+        travelTaxi = transport * 0.4 * 2 * 3;
+      }
+
+      console.log(travelTaxi); //calculating car
+
+      var travelCar;
+
+      if (passengers <= 4) {
+        travelCar = transport * 0.2 * 2 + 3;
+      } else if (passengers > 4 && passengers < 9) {
+        travelCar = transport * 0.2 * 2 * 2 + 6;
+      } else {
+        travelCar = transport * 0.2 * 2 * 3 + 9;
+      }
+
+      console.log(travelCar);
+
+      if (transportType === "Car") {
+        return {
+          type: "Car",
+          cost: travelCar
+        };
+      } else {
+        return {
+          type: "Taxi",
+          cost: travelTaxi
+        };
+      }
+    }
+  }]);
+
+  return Transport;
+}();
+
+exports.Transport = Transport;
+var transportModel = new Transport();
+exports.transportModel = transportModel;
 },{}],"index.js":[function(require,module,exports) {
 "use strict";
 
-var _flights = require("./js/models/flights");
+var _flights = require("./js/models/flights.js");
 
-var _flightview = require("./js/views/flightview");
+var _flightview = require("./js/views/flightview.js");
 
+var _transport = require("./js/models/transport.js");
+
+//controller
 //selectors
 var inbound = document.getElementById("inbound");
 var outbound = document.getElementById("outbound");
 var distance = document.getElementById("distance");
-var passengers = document.getElementById("passengers"); //app state - all info/data that app holds at a certain time. we set it as null there is no state, there can be if check
+var passengers = document.getElementById("passengers");
+var transport = document.getElementById("transport");
+var transportType = document.getElementById("typeoftransport"); // 
+
+4; //app state - all info/data that app holds at a certain time. we set it as null there is no state, there can be if check
 
 var state = {
   input: {
-    inbound: null,
     outbound: null,
+    inbound: null,
     distance: null,
-    passengers: null
+    passengers: null,
+    transport: null,
+    transportType: null
   },
   output: {
-    suggestion: null
+    suggestion: null,
+    transport: null
   }
 }; //event handlers
 
-inbound.addEventListener("change", function (event) {
-  // console.log(event);
-  // console.log(event.target);
-  // console.log(event.target.value);
-  state.input.inbound = event.target.value;
-  console.log(state); // renderFlights("123456");
-
-  state.output.suggestion = _flights.flightsModel.getClosestFlight(state.input.inbound, state.input.outbound);
-  console.log(state);
-  if (state.output.suggestion && state.input.passengers) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers);
-});
 outbound.addEventListener("change", function (event) {
   state.input.outbound = event.target.value;
-  console.log(state);
-
-  var availableFlights = _flights.flightsModel.getClosestFlight(state.input.inbound, state.input.outbound);
-
-  console.log(availableFlights);
   state.output.suggestion = _flights.flightsModel.getClosestFlight(state.input.inbound, state.input.outbound);
-  console.log(state);
   if (state.output.suggestion && state.input.passengers) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers);
 });
-distance.addEventListener("change", function (event) {
-  state.input.distance = parseInt(event.target.value);
+console.log(state);
+inbound.addEventListener("change", function (event) {
+  state.input.inbound = event.target.value;
+  state.output.suggestion = _flights.flightsModel.getClosestFlight(state.input.inbound, state.input.outbound, state.input.passengers);
+  if (state.output.suggestion && state.input.passengers) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers, state.transport);
   console.log(state);
 }); //parseInt - used to change from type string to type number
 
 passengers.addEventListener("change", function (event) {
   state.input.passengers = parseInt(event.target.value);
-  console.log(state);
-  if (state.output.suggestion && state.input.passengers) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers);
+  state.output.transport = _transport.transportModel.getTransportCost(state.input.transport, state.input.passengers, state.input.transportType);
+  if (state.output.suggestion && state.input.passengers && state.input.transport) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers, state.output.transport);
 });
-console.log(_flights.flightsModel);
-},{"./js/models/flights":"js/models/flights.js","./js/views/flightview":"js/views/flightview.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+transport.addEventListener("change", function (event) {
+  state.input.transport = parseInt(event.target.value); // if (state.output.suggestion && state.input.passengers) renderFlights(state.output.suggestion, state.input.passengers);
+
+  console.log(state);
+  state.output.transport = _transport.transportModel.getTransportCost(state.input.transport, state.input.passengers, state.input.transportType);
+  if (state.output.suggestion && state.input.passengers && state.input.transport) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers, state.output.transport);
+  console.log(state);
+});
+transportType.addEventListener("change", function (event) {
+  state.input.transportType = event.target.value;
+  state.output.transport = _transport.transportModel.getTransportCost(state.input.transport, state.input.passengers, state.input.transportType);
+  if (state.output.suggestion && state.input.passengers && state.input.transport) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers, state.output.transport);
+  console.log(state);
+});
+console.log(state);
+},{"./js/models/flights.js":"js/models/flights.js","./js/views/flightview.js":"js/views/flightview.js","./js/models/transport.js":"js/models/transport.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -354,7 +449,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54732" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59039" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
