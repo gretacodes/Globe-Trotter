@@ -4,7 +4,7 @@ The instructions for accessing the solution:
 2. Open the file location
 3. Go to directory
 4. npm install
-5.npm run start and the window will open automatically
+5. npm run start and the window will open automatically
 
 
 Test Results: Output Data
