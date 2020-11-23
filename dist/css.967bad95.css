@@ -1,39 +1,18 @@
 .form-row {
-  
     color:white;
     font-family: 'Bebas Neue', cursive;
     font-size:20px;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
-@media only screen and (max-width: 768px) {
-   .form-group {
-    margin-left:7rem;
-    }
-  }
-
-  p {
-      color:rgb(231, 235, 203);
-      font-size:28px;
-      width: 500px;
-      border: 10px solid rgb(54, 122, 104);
-      padding: 10px;
-      margin: 10px;
-      font-family: 'Bebas Neue', cursive;
-      align-items: center;
-      padding-left:2rem;
-  }
- 
 
 body {
     background-image: url("/planes13.e19c1abe.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: center;
-    
+    background-position: center;   
 }
 
 h1 {
@@ -45,59 +24,58 @@ h1 {
     text-shadow: 4px 4px black;
     padding-top:4rem;
     padding-bottom:4rem;
-    color:rgb(231, 235, 203);
-    
+    color:rgb(231, 235, 203);    
 }
 
 @media only screen and (max-width: 768px) {
-    h1 {
-     font-size:40px;
+    h1{
+      padding-top:3rem;
+      padding-bottom:3rem;
+      color:rgb(231, 235, 203);
+      font-size:50px;
+       }
      }
-   }
+
+
 .design {
     font-size:28px;
         text-shadow: 2px 2px black;
         color:rgb(186, 81, 40);
-        font-family: 'Bebas Neue', cursive;
-        
+        font-family: 'Bebas Neue', cursive;       
 }
+
+@media only screen and (max-width: 768px) {
+    .design {
+     font-size:20px;
+       }
+     }
+
 
 .design1 {
     font-size:28px;
     text-shadow: 2px 2px black;
     color:rgb(186, 81, 40);
     font-family: 'Bebas Neue', cursive;
-    padding-top:1rem;
-   
+    padding-top:1rem; 
 }
-
 @media only screen and (max-width: 768px) {
-    .design {
-    font-size:24px;
-    color: rgb(228, 218, 89);
-    text-shadow: 2px 2px black;
+    .design1 {
+     font-size:20px;
+       }
      }
-   }
 
 
 #distance, #outbound, #inbound, #passengers, #transport, #typeoftransport {
     font-size:15px;
     color:black;
     font-family: 'Epilogue', sans-serif;
-    border-radius: 20px;
-    
+    border-radius: 20px;   
 }
-@media only screen and (max-width: 768px) {
-    #distance, #outbound, #inbound, #passengers, #transport  {
-     font-size:12.5px;
-     }
-   }
+
 
 .text-center {
     font-family: 'Carter One', cursive;
-    padding-bottom:3rem;
- 
-    
+    padding-bottom:3rem;   
 }
 
 ul {
@@ -118,28 +96,24 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 @media only screen and (max-width: 768px) {
-    .card-header {
-    font-size:30px;
+.card-header {
+    margin-left:4rem;
      }
-   }
+     }
 
 #suggestioncontainer {
 display:flex;
     justify-content: center;
     align-items: center;
     padding-bottom:3rem;
+    padding-top:3rem;
 }
 
-@media only screen and (max-width: 768px) {
-    #suggestioncontainer {
-    padding:1rem;
-     }
-   }
 .card {
-    background:rgb(54, 122, 104);}
+    background:rgb(54, 122, 104);
+}
 
 /*# sourceMappingURL=/css.967bad95.css.map */

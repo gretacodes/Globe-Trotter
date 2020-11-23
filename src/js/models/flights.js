@@ -1,12 +1,15 @@
 //model
+import { flights as flightStrings } from '../data.js';
 
-import { flights } from '../data.js';
+
 
 // OOP
 // Class for the flights model
 class Flights {
 
     constructor (flights){
+
+        console.log(flights);
 
         //variable to parse out the appropriate flight data
         const flightData=flights.map(function(flightElement){
@@ -43,14 +46,12 @@ class Flights {
 
             // filter out the flights that fly from the destination
             const existingFlights = flightData.filter(function(flightElement) {
-
                 return flightElement.departure === flight.destination;
 
             })
 
             // generate redirected flights
             const redirectedFlights = existingFlights.map(function(existingFlight) {
-
                 return {
                     id: `${flight.id}-${existingFlight.id}`,
                     departure: flight.departure,
@@ -69,22 +70,19 @@ class Flights {
 
         });
 
-
-
         let doubleRedirectFlights = [];
 
         //generate all flights with 2 transfers
         singleRedirectFlights.forEach(function(flight) {
 
-
             const existingFlights = flightData.filter(function(flightElement) {
-
-                return flightElement.destination === flight.transfer1
+                return flightElement.departure === flight.destination;
 
             });
 
-            const redirectedFlights = existingFlights.map(function(existingFlight) {
+            console.log(existingFlights);
 
+            const redirectedFlights = existingFlights.map(function(existingFlight) {
                 return {
                     id: `${flight.id}-${existingFlight.id}`,
                     departure: flight.departure,
@@ -96,34 +94,37 @@ class Flights {
 
             });
 
-
-
+            //array containing arrays
             doubleRedirectFlights = [ ...doubleRedirectFlights, ...redirectedFlights ];
             
 
         })
         //spread operator...merges multiple arrays into one.
         this.possibleFlights=[ ...directFlights, ...singleRedirectFlights, ...doubleRedirectFlights ];
-   
 
     }
 
     getClosestFlight(departure, destination, passengers) {
 
 
-        // get appropriate flights
+        // get appropriate flights - outbound by filtering
         const filteredFlights= this.possibleFlights.filter(function(flightElement) {
-            return flightElement.departure === departure && flightElement.destination === destination;
+        return flightElement.departure === departure && flightElement.destination === destination;
    
         });
+
+        //get appropriate flights - inbound by filtering
         const filteredFlights1= this.possibleFlights.filter(function(flightElement) {
         return flightElement.destination === departure && flightElement.departure === destination;
-    });
+
+        });
+
         // sorting based on lowest distance
         filteredFlights.sort(function(a, b){return a.distance - b.distance});
         filteredFlights1.sort(function(a, b){return a.distance - b.distance});
 
 
+        
         // [1, 2] [] if array is empty come back as null - if no trips/combinations available
         const flightObject={
             outbound: filteredFlights[0] ? filteredFlights[0] : null,
@@ -133,17 +134,10 @@ class Flights {
         return flightObject;
 
     }
-
-
-
 };
 
-// Create the instance of the Flgiht class
-export const flightsModel= new Flights(flights);
+console.log(flightStrings);
 
-
-
-
-
-
+// Create the instance of the Flight class
+export const flightsModel= new Flights(flightStrings);
 

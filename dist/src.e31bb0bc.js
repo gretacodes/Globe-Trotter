@@ -124,7 +124,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.flights = void 0;
-//all data used
 //data for flights
 var flights = ["AB800", "BC900", "CD400", "DE400", "BF400", "CE300", "DE300", "EB600", "CE200", "DC700", "EB500", "FD200"];
 exports.flights = flights;
@@ -162,7 +161,8 @@ var Flights = /*#__PURE__*/function () {
   function Flights(flights) {
     _classCallCheck(this, Flights);
 
-    //variable to parse out the appropriate flight data
+    console.log(flights); //variable to parse out the appropriate flight data
+
     var flightData = flights.map(function (flightElement) {
       //parse out flight id
       var id = flightElement; //parse out departure
@@ -207,8 +207,9 @@ var Flights = /*#__PURE__*/function () {
 
     singleRedirectFlights.forEach(function (flight) {
       var existingFlights = flightData.filter(function (flightElement) {
-        return flightElement.destination === flight.transfer1;
+        return flightElement.departure === flight.destination;
       });
+      console.log(existingFlights);
       var redirectedFlights = existingFlights.map(function (existingFlight) {
         return {
           id: "".concat(flight.id, "-").concat(existingFlight.id),
@@ -218,7 +219,8 @@ var Flights = /*#__PURE__*/function () {
           destination: existingFlight.destination,
           distance: flight.distance + existingFlight.distance
         };
-      });
+      }); //array containing arrays
+
       doubleRedirectFlights = [].concat(_toConsumableArray(doubleRedirectFlights), _toConsumableArray(redirectedFlights));
     }); //spread operator...merges multiple arrays into one.
 
@@ -228,10 +230,11 @@ var Flights = /*#__PURE__*/function () {
   _createClass(Flights, [{
     key: "getClosestFlight",
     value: function getClosestFlight(departure, destination, passengers) {
-      // get appropriate flights
+      // get appropriate flights - outbound by filtering
       var filteredFlights = this.possibleFlights.filter(function (flightElement) {
         return flightElement.departure === departure && flightElement.destination === destination;
-      });
+      }); //get appropriate flights - inbound by filtering
+
       var filteredFlights1 = this.possibleFlights.filter(function (flightElement) {
         return flightElement.destination === departure && flightElement.departure === destination;
       }); // sorting based on lowest distance
@@ -254,7 +257,8 @@ var Flights = /*#__PURE__*/function () {
   return Flights;
 }();
 
-; // Create the instance of the Flgiht class
+;
+console.log(_data.flights); // Create the instance of the Flight class
 
 var flightsModel = new Flights(_data.flights);
 exports.flightsModel = flightsModel;
@@ -267,17 +271,18 @@ Object.defineProperty(exports, "__esModule", {
 exports.renderFlights = void 0;
 
 //view
+//render function to display the results
 var renderFlights = function renderFlights(suggestion, passengers, transport) {
-  var _suggestion$outbound, _suggestion$outbound2, _suggestion$inbound, _suggestion$inbound2, _suggestion$inbound3, _suggestion$outbound3;
+  var _suggestion$outbound, _suggestion$outbound2, _suggestion$inbound, _suggestion$inbound2, _suggestion$inbound3, _suggestion$outbound3, _suggestion$outbound4, _suggestion$outbound5, _suggestion$outbound6, _suggestion$outbound7, _suggestion$inbound4, _suggestion$inbound5, _suggestion$inbound6, _suggestion$inbound7;
 
-  console.log(suggestion); //select conatainer
-
+  //select conatainer
   var container = document.getElementById("suggestioncontainer"); // //reset the container
 
   container.innerHTML = ""; //generate markup
 
-  var markup = "\n        <div class=\"card\" style=\"width: 38rem;\" id=\"suggestion\">\n        <div class=\"card-header\">\n          Globe-Trotter Suggestion\n        </div>\n        <ul class=\"list-group list-group-flush\">\n        <li class=\"list-group-item\">Outbound Route: ".concat(suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound = suggestion.outbound) === null || _suggestion$outbound === void 0 ? void 0 : _suggestion$outbound.id, " </li>\n        <li class=\"list-group-item\">Outbound Cost: \xA3").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound2 = suggestion.outbound) === null || _suggestion$outbound2 === void 0 ? void 0 : _suggestion$outbound2.distance) * passengers * 0.1, "</li>\n        </br>\n        <li class=\"list-group-item\">Inbound Route:").concat(suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound = suggestion.inbound) === null || _suggestion$inbound === void 0 ? void 0 : _suggestion$inbound.id, " </li>\n        <li class=\"list-group-item\">Inbound Cost: \xA3").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound2 = suggestion.inbound) === null || _suggestion$inbound2 === void 0 ? void 0 : _suggestion$inbound2.distance) * passengers * 0.1, " </li>\n    </br>\n        <li class=\"list-group-item\"> Return Travel to Airport Cost & Type: \xA3").concat(transport === null || transport === void 0 ? void 0 : transport.cost, " (").concat(transport === null || transport === void 0 ? void 0 : transport.type, ") </li>\n        \n        </br>\n        <li class=\"list-group-item\" >TOTAL COST: \xA3").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound3 = suggestion.inbound) === null || _suggestion$inbound3 === void 0 ? void 0 : _suggestion$inbound3.distance) * passengers * 0.1 + (suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound3 = suggestion.outbound) === null || _suggestion$outbound3 === void 0 ? void 0 : _suggestion$outbound3.distance) * passengers * 0.1 + (transport === null || transport === void 0 ? void 0 : transport.cost), " </li>\n        \n        </ul>\n    </div>");
-  var noFlightsMarkup = "\n    <p> Sorry, there are no outbound/inbound flights available based on your selection.  </p>   \n    "; //insert markup into the container
+  var markup = "\n        <div class=\"card\" style=\"width: 38rem;\" id=\"suggestion\">\n        <div class=\"card-header\"> Globe-Trotter Suggestion </div>\n        <ul class=\"list-group list-group-flush\">\n        <li class=\"list-group-item\">Outbound Route: ".concat(suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound = suggestion.outbound) === null || _suggestion$outbound === void 0 ? void 0 : _suggestion$outbound.id, " </li>\n        <li class=\"list-group-item\">Outbound Cost: \xA3").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound2 = suggestion.outbound) === null || _suggestion$outbound2 === void 0 ? void 0 : _suggestion$outbound2.distance) * passengers * 0.1, "</li>\n        </br>\n        <li class=\"list-group-item\">Inbound Route:").concat(suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound = suggestion.inbound) === null || _suggestion$inbound === void 0 ? void 0 : _suggestion$inbound.id, " </li>\n        <li class=\"list-group-item\">Inbound Cost: \xA3").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound2 = suggestion.inbound) === null || _suggestion$inbound2 === void 0 ? void 0 : _suggestion$inbound2.distance) * passengers * 0.1, " </li>\n        </br>\n        <li class=\"list-group-item\"> Return Travel to Airport Cost & Type: \xA3").concat(transport === null || transport === void 0 ? void 0 : transport.cost, " (").concat(transport === null || transport === void 0 ? void 0 : transport.type, ") </li>\n        </br>\n        <li class=\"list-group-item\" >TOTAL COST: \xA3").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound3 = suggestion.inbound) === null || _suggestion$inbound3 === void 0 ? void 0 : _suggestion$inbound3.distance) * passengers * 0.1 + (suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound3 = suggestion.outbound) === null || _suggestion$outbound3 === void 0 ? void 0 : _suggestion$outbound3.distance) * passengers * 0.1 + (transport === null || transport === void 0 ? void 0 : transport.cost), " </li>\n        </ul>\n    </div>"); //generate markup if one of the flights is not valid
+
+  var noFlightsMarkup = "\n    <div class=\"card\" style=\"width: 38rem;\" id=\"suggestion\">\n    <div class=\"card-header\"> Globe-Trotter Suggestion </div>\n    <ul class=\"list-group list-group-flush\">\n    <li class=\"list-group-item\">Outbound Route:".concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound4 = suggestion.outbound) === null || _suggestion$outbound4 === void 0 ? void 0 : _suggestion$outbound4.id) ? suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound5 = suggestion.outbound) === null || _suggestion$outbound5 === void 0 ? void 0 : _suggestion$outbound5.id : "No Flight", " </li>\n    <li class=\"list-group-item\">Outbound Cost: ").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound6 = suggestion.outbound) === null || _suggestion$outbound6 === void 0 ? void 0 : _suggestion$outbound6.distance) ? "\xA3".concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$outbound7 = suggestion.outbound) === null || _suggestion$outbound7 === void 0 ? void 0 : _suggestion$outbound7.distance) * passengers * 0.1) : "0", "</li>\n    </br>\n    <li class=\"list-group-item\">Inbound Route:").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound4 = suggestion.inbound) === null || _suggestion$inbound4 === void 0 ? void 0 : _suggestion$inbound4.id) ? suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound5 = suggestion.inbound) === null || _suggestion$inbound5 === void 0 ? void 0 : _suggestion$inbound5.id : "No Flight", " </li>\n    <li class=\"list-group-item\">Inbound Cost: ").concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound6 = suggestion.inbound) === null || _suggestion$inbound6 === void 0 ? void 0 : _suggestion$inbound6.distance) ? "\xA3".concat((suggestion === null || suggestion === void 0 ? void 0 : (_suggestion$inbound7 = suggestion.inbound) === null || _suggestion$inbound7 === void 0 ? void 0 : _suggestion$inbound7.distance) * passengers * 0.1) : "0", " </li>\n    </br>\n    <li class=\"list-group-item\"> Return Travel to Airport Cost & Type: \xA3").concat(transport === null || transport === void 0 ? void 0 : transport.cost, " (").concat(transport === null || transport === void 0 ? void 0 : transport.type, ") </li> \n    </br>\n    <li class=\"list-group-item\" >TOTAL COST: \xA3", "0", " </li>\n    </ul>\n</div>"); //insert markup into the container, used conditional (ternary) operator for displaying the results
 
   container.insertAdjacentHTML('beforeend', (suggestion === null || suggestion === void 0 ? void 0 : suggestion.outbound) && (suggestion === null || suggestion === void 0 ? void 0 : suggestion.inbound) ? markup : noFlightsMarkup);
 };
@@ -297,7 +302,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-// //  
+// // model2 
 // class that calculates the transport costs
 var Transport = /*#__PURE__*/function () {
   function Transport(transport) {
@@ -317,9 +322,8 @@ var Transport = /*#__PURE__*/function () {
         travelTaxi = transport * 0.4 * 2 * 2;
       } else {
         travelTaxi = transport * 0.4 * 2 * 3;
-      }
+      } //calculating car
 
-      console.log(travelTaxi); //calculating car
 
       var travelCar;
 
@@ -330,8 +334,6 @@ var Transport = /*#__PURE__*/function () {
       } else {
         travelCar = transport * 0.2 * 2 * 3 + 9;
       }
-
-      console.log(travelCar);
 
       if (transportType === "Car") {
         return {
@@ -393,7 +395,6 @@ outbound.addEventListener("change", function (event) {
   state.output.suggestion = _flights.flightsModel.getClosestFlight(state.input.inbound, state.input.outbound);
   if (state.output.suggestion && state.input.passengers) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers);
 });
-console.log(state);
 inbound.addEventListener("change", function (event) {
   state.input.inbound = event.target.value;
   state.output.suggestion = _flights.flightsModel.getClosestFlight(state.input.inbound, state.input.outbound, state.input.passengers);
@@ -407,20 +408,15 @@ passengers.addEventListener("change", function (event) {
   if (state.output.suggestion && state.input.passengers && state.input.transport) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers, state.output.transport);
 });
 transport.addEventListener("change", function (event) {
-  state.input.transport = parseInt(event.target.value); // if (state.output.suggestion && state.input.passengers) renderFlights(state.output.suggestion, state.input.passengers);
-
-  console.log(state);
+  state.input.transport = parseInt(event.target.value);
   state.output.transport = _transport.transportModel.getTransportCost(state.input.transport, state.input.passengers, state.input.transportType);
   if (state.output.suggestion && state.input.passengers && state.input.transport) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers, state.output.transport);
-  console.log(state);
 });
 transportType.addEventListener("change", function (event) {
   state.input.transportType = event.target.value;
   state.output.transport = _transport.transportModel.getTransportCost(state.input.transport, state.input.passengers, state.input.transportType);
   if (state.output.suggestion && state.input.passengers && state.input.transport) (0, _flightview.renderFlights)(state.output.suggestion, state.input.passengers, state.output.transport);
-  console.log(state);
 });
-console.log(state);
 },{"./js/models/flights.js":"js/models/flights.js","./js/views/flightview.js":"js/views/flightview.js","./js/models/transport.js":"js/models/transport.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -449,7 +445,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56652" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56389" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

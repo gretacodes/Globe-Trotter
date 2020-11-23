@@ -1,6 +1,7 @@
 
-// //  
+// // model2 
 // class that calculates the transport costs
+
 export class Transport {
 
     constructor(transport) {}
@@ -18,7 +19,7 @@ export class Transport {
         } else {
             travelTaxi= transport * 0.4 * 2 * 3;
         }
-        console.log(travelTaxi);
+
 
         //calculating car
 
@@ -30,8 +31,6 @@ export class Transport {
         } else {
             travelCar= transport * 0.2 * 2 * 3 + 9;
         }
-
-        console.log(travelCar);
 
        if (transportType==="Car") {
            

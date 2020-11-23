@@ -44,7 +44,6 @@ outbound.addEventListener("change", function(event) {
 
 
 })
-console.log(state);
 
 inbound.addEventListener("change", function(event) {
 
@@ -69,14 +68,11 @@ passengers.addEventListener("change", function(event) {
 transport.addEventListener("change", function(event) {
 
     state.input.transport=parseInt(event.target.value);
-    // if (state.output.suggestion && state.input.passengers) renderFlights(state.output.suggestion, state.input.passengers);
-    console.log(state);
-
+    
     state.output.transport = transportModel.getTransportCost(state.input.transport, state.input.passengers, state.input.transportType);
 
     if (state.output.suggestion && state.input.passengers && state.input.transport) renderFlights(state.output.suggestion, state.input.passengers, state.output.transport);
   
-    console.log(state);
   
 })
 
@@ -86,15 +82,10 @@ transportType.addEventListener("change", function(event) {
     
     state.output.transport = transportModel.getTransportCost(state.input.transport, state.input.passengers, state.input.transportType);
 
-    if (state.output.suggestion && state.input.passengers && state.input.transport) renderFlights(state.output.suggestion, state.input.passengers, state.output.transport);
-  
-    console.log(state);
+    if (state.output.suggestion && state.input.passengers && state.input.transport) renderFlights(state.output.suggestion, state.input.passengers, state.output.transport)
   
 })
 
-
-
-    console.log(state);
 
 
 
