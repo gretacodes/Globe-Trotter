@@ -15,7 +15,7 @@ export const renderFlights = (suggestion,passengers, transport) => {
       const markup=`
         <div class="card" style="width: 38rem;" id="suggestion">
         <div class="card-header">
-          OUR SUGGESTION
+          Globe-Trotter Suggestion
         </div>
         <ul class="list-group list-group-flush">
         <li class="list-group-item">Outbound Route: ${suggestion?.outbound?.id} </li>
@@ -33,7 +33,7 @@ export const renderFlights = (suggestion,passengers, transport) => {
     </div>`;
     
     const noFlightsMarkup=`
-    <p> No Flights </p>   
+    <p> Sorry, there are no outbound/inbound flights available based on your selection.  </p>   
     `;
 
 

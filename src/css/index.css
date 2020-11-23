@@ -1,10 +1,11 @@
-.form-group {
+.form-row {
   
-    padding-bottom:1rem;
     color:white;
     font-family: 'Bebas Neue', cursive;
     font-size:20px;
-margin-left:32rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
@@ -14,26 +15,38 @@ margin-left:32rem;
     }
   }
 
+  p {
+      color:rgb(231, 235, 203);
+      font-size:28px;
+      width: 500px;
+      border: 10px solid rgb(54, 122, 104);
+      padding: 10px;
+      margin: 10px;
+      font-family: 'Bebas Neue', cursive;
+      align-items: center;
+      padding-left:2rem;
+  }
  
 
 body {
-    background-image: url("./background.png");
+    background-image: url("./planes13.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover;
-    background-size: 1600px 1100px;
+    background-position: center;
+    
 }
 
 h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Carter One', cursive;
+    font-family: 'Righteous', cursive;
     font-size:85px;
     text-shadow: 4px 4px black;
-    padding-top:3rem;
-    padding-bottom:2rem;
-    color: rgb(228, 218, 89);
+    padding-top:4rem;
+    padding-bottom:4rem;
+    color:rgb(231, 235, 203);
+    
 }
 
 @media only screen and (max-width: 768px) {
@@ -44,8 +57,18 @@ h1 {
 .design {
     font-size:28px;
         text-shadow: 2px 2px black;
-        color:rgb(224, 95, 95);
+        color:rgb(186, 81, 40);
         font-family: 'Bebas Neue', cursive;
+        
+}
+
+.design1 {
+    font-size:28px;
+    text-shadow: 2px 2px black;
+    color:rgb(186, 81, 40);
+    font-family: 'Bebas Neue', cursive;
+    padding-top:1rem;
+   
 }
 
 @media only screen and (max-width: 768px) {
@@ -57,7 +80,7 @@ h1 {
    }
 
 
-#distance, #outbound, #inbound, #passengers, #transport {
+#distance, #outbound, #inbound, #passengers, #transport, #typeoftransport {
     font-size:15px;
     color:black;
     font-family: 'Epilogue', sans-serif;
@@ -80,35 +103,27 @@ h1 {
 ul {
     font-size:24px;
     padding-left:0.5rem;
-}
-.butt {
-   padding-left:4.5rem;
-   padding-right:4.5rem;
-   padding-top:0.5rem;
-   padding-bottom:0.5rem;
-    font-size:20px;
-    background-color: rgb(224, 95, 95);
-    color:white;
-
-}
-ul{
     font-family: 'Bebas Neue', cursive;
 }
 
 .card-header {
-    font-family: 'Carter One', cursive;
-    color:  rgb(228, 218, 89);
-    font-size:50px;
+ 
+    font-size:40px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-shadow: 4px 4px black;
+    font-family: 'Righteous', cursive;
+    color:rgb(231, 235, 203);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
 @media only screen and (max-width: 768px) {
     .card-header {
-    font-size:40px;
+    font-size:30px;
      }
    }
 
@@ -125,4 +140,4 @@ display:flex;
      }
    }
 .card {
-    background:rgb(224, 95, 95);}
+    background:rgb(54, 122, 104);}

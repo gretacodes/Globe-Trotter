@@ -9,6 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Nixie+One&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Days+One&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css.967bad95.css">
@@ -24,7 +28,7 @@
 <form onsubmit="return false;">
   <div class="form-group">
     <div class="form-row">
-      <div class="col-6">
+      <div class="col-4">
     <label for="inputinbound" class="design">Outbound</label>
    
     <select class="custom-select" id="inbound">
@@ -42,7 +46,7 @@
   </div>
   <div class="form-group">
     <div class="form-row">
-      <div class="col-6">
+      <div class="col-4">
     <label for="inputoutbound" class="design">Inbound</label>
     <select class="custom-select" id="outbound">
         <option selected="">Choose Inbound Destination</option>
@@ -56,11 +60,24 @@
       </div></div>
    
   </div>
+    <div class="form-row">  
+      <div class="col-2">
+    <label for="typeoftransport" class="design">Transport Type</label>
+    <select class="custom-select" id="typeoftransport">
+
+        <option>Type of Transport</option>
+        <option selected="" value="Taxi">Taxi</option>
+        <option value="Car">Car</option>
+      </select></div>
+     
+      <div class="col-2">
+  <label for="transport" class="design">Distance (Miles)</label>
+      <input type="number" class="form-control" id="transport" placeholder="Enter Distance to the Airport">
+    </div></div>
  
-  <div class="form-group">
-    <div class="form-row">
-      <div class="col-6">
-    <label for="inputoutbound" class="design">Passengers</label>
+    <div class="form-row">  
+      <div class="col-2">
+    <label for="inputoutbound" class="design1">Passengers</label>
     <select class="custom-select" id="passengers">
 
         <option selected="">No.of Passengers</option>
@@ -75,33 +92,11 @@
         <option value="9">9</option>
       </select>
       </div>
-      </div>
-
-  </div>
-
-  <div class="form-group">
-    <div class="form-row">
-      <div class="col-6">
-    <label for="typeoftransport" class="design">Type of Transport</label>
-    <select class="custom-select" id="typeoftransport">
-
-        <option>Type of Transport</option>
-        <option selected="" value="Taxi">Taxi</option>
-        <option value="Car">Car</option>
-      </select></div></div></div>
-      
-      
-  <div class="form-group">
-    <div class="form-row">
-      <div class="col-6">
-  <label for="transport" class="design">Transport</label>
-      <input type="number" class="form-control" id="transport" placeholder="Enter Transport Distance">
-    </div></div></div>
+    </div>
+ 
+  </form>
 +
-  <!-- <div class="text-center">
-   <button type="button"  class="butt"  >Search</button></div>
-   </form>
-</form> -->
+
 
 <div id="suggestioncontainer">
   <!-- <div class="card" style="width: 38rem;" id="suggestion">
@@ -135,5 +130,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-</form></body>
+</body>
 </html>
